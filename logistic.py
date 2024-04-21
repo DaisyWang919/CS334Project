@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, roc_curve, auc
+import joblib
 
 def load_data(filepath):
     df = pd.read_csv(filepath)
@@ -29,13 +30,17 @@ def evaluate_model(model, X_test, y_test):
         fpr, tpr, _ = roc_curve(y_test, probabilities.ravel())
         auc_score = auc(fpr, tpr)
         return accuracy, f1, roc_auc, auc_score
+    
+def save_model(model):
+    joblib.dump(model, 'logistic_regression_model.pkl')
 
 if __name__ == "__main__":
-    X_train, y_train = load_data("data_selected/base_selected_train.csv")
-    X_test, y_test = load_data("data_selected/base_selected_test.csv")
+    X_train, y_train = load_data("../data_selected/base_selected_train.csv")
+    X_test, y_test = load_data("../data_selected/base_selected_test.csv")
     best_lr = train_logistic_regression(X_train, y_train)
     accuracy, f1, roc_auc, auc_score = evaluate_model(best_lr, X_test, y_test)
     print(f"Logistic Regression Test Accuracy: {accuracy}")
     print(f"Logistic Regression Test F1 Score: {f1}")
     print(f"Logistic Regression Test ROC AUC: {roc_auc}")
     print(f"Logistic Regression Test AUC: {auc_score}")
+    save_model(best_lr)
