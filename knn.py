@@ -1,3 +1,4 @@
+import joblib
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -10,9 +11,6 @@ def load_data(filepath):
     y = df.iloc[:, 0].values   # First column as target
     return X, y
 
-def split_data(X, y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    return X_train, X_test, y_train, y_test
 
 def train_knn(X_train, y_train):
     param_grid = {'n_neighbors': [3, 5, 7, 9, 11]}
@@ -32,11 +30,15 @@ def evaluate_model(model, X_test, y_test):
     fpr, tpr, _ = roc_curve(y_test, probabilities.ravel())
     return accuracy, f1, roc_auc
 
+def save_model(model):
+    joblib.dump(model, 'logistic_regression_model.pkl')
+
 if __name__ == "__main__":
-    X, y = load_data("data_selected/base_selected.csv")
-    X_train, X_test, y_train, y_test = split_data(X, y)
+    X_train, y_train = load_data("/data_selected/base_selected_train.csv")
+    X_test, y_test = load_data("/data_selected/base_selected_test.csv")
     best_knn = train_knn(X_train, y_train)
     accuracy, f1, roc_auc = evaluate_model(best_knn, X_test, y_test)
     print(f"KNN Test Accuracy: {accuracy}")
     print(f"KNN Test F1 Score: {f1}")
     print(f"KNN Test ROC AUC: {roc_auc}")
+    save_model(best_knn)

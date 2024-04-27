@@ -23,9 +23,6 @@ def select_features(trainDF, testDF):
     deleted = []
     for feature in continuous_vars:
         if feature in selected_features:
-            if corr_with_target[feature] < -0.28:
-                selected_features.remove(feature)
-                deleted.append(feature)
             correlated_features = corr[(corr[feature] < -0.25) | (corr[feature] > 0.25)].index.tolist()
             correlated_features.remove(feature)
             for correlated_feature in correlated_features:

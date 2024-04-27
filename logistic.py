@@ -30,6 +30,8 @@ def evaluate_model(model, X_test, y_test):
         fpr, tpr, _ = roc_curve(y_test, probabilities.ravel())
         auc_score = auc(fpr, tpr)
         return accuracy, f1, roc_auc, auc_score
+        auc_score = auc(fpr, tpr)
+        return accuracy, f1, roc_auc, auc_score
     
 def save_model(model):
     joblib.dump(model, 'logistic_regression_model.pkl')
@@ -43,4 +45,5 @@ if __name__ == "__main__":
     print(f"Logistic Regression Test F1 Score: {f1}")
     print(f"Logistic Regression Test ROC AUC: {roc_auc}")
     print(f"Logistic Regression Test AUC: {auc_score}")
+
     save_model(best_lr)
