@@ -4,9 +4,10 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import joblib
 
-train_data = pd.read_csv('data_selected/base_selected_train.csv')
-test_data = pd.read_csv('data_selected/base_selected_test.csv')
+train_data = pd.read_csv('../data_selected/base_selected_train.csv')
+test_data = pd.read_csv('../data_selected/base_selected_test.csv')
 X_train = train_data.drop('fraud_bool', axis=1)
 y_train = train_data['fraud_bool']
 X_test = test_data.drop('fraud_bool', axis=1)
@@ -49,3 +50,5 @@ print(f"Model AUC-ROC: {auc_roc}")
 cm = confusion_matrix(y_test, y_pred)
 print("Confusion Matrix:")
 print(cm)
+
+joblib.dump(mlp, 'nn_model.pkl')

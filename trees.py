@@ -4,10 +4,11 @@ from sklearn.metrics import f1_score, roc_auc_score
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline
 import pandas as pd
+import joblib
 
 # Load dataset
 print("Loading data...")
-df = pd.read_csv('./data_selected/base_selected_test.csv')
+df = pd.read_csv('../data_selected/base_selected_train.csv')
 X = df.drop('fraud_bool', axis=1)
 y = df['fraud_bool']
 
@@ -44,3 +45,5 @@ test_roc_auc = roc_auc_score(y_test, y_pred)
 print(f"Best Decision Tree parameters: {clf.best_params_}")
 print(f"Decision Tree Test F1 Score: {test_f1_score:.4f}")
 print(f"Decision Tree Test ROC AUC: {test_roc_auc:.4f}")
+
+joblib.dump(best_model, 'decision_tree__model.pkl')

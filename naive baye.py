@@ -10,6 +10,7 @@ X_test = test_data.drop('fraud_bool', axis=1)
 y_test = test_data['fraud_bool']
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 from sklearn.naive_bayes import GaussianNB
+import joblib
 
 # Instantiate the classifier
 gnb = GaussianNB()
@@ -42,3 +43,4 @@ y_probs = model.predict_proba(X_test)[:, 1]  # get the probabilities of the posi
 # Calculate AUC-ROC
 auc_roc = roc_auc_score(y_test, y_probs)
 print(f"Model AUC-ROC: {auc_roc}")
+joblib.dump(model, 'nb_model.pkl')
