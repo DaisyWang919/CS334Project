@@ -17,10 +17,9 @@ lr_performance = {
 # Variants
 variants = ['Base', 'Variant I', 'Variant II', 'Variant III', 'Variant IV']
 
-# Create DataFrames
 nn_df = pd.DataFrame(nn_performance, index=variants)
 lr_df = pd.DataFrame(lr_performance, index=variants)
 
-# Combine DataFrames for display
+
 combined_df = pd.concat([nn_df.add_prefix('NN '), lr_df.add_prefix('LR ')], axis=1)
 combined_df

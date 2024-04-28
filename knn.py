@@ -31,11 +31,11 @@ def evaluate_model(model, X_test, y_test):
     return accuracy, f1, roc_auc
 
 def save_model(model):
-    joblib.dump(model, 'logistic_regression_model.pkl')
+    joblib.dump(model, 'knn_model.pkl')
 
 if __name__ == "__main__":
-    X_train, y_train = load_data("/data_selected/base_selected_train.csv")
-    X_test, y_test = load_data("/data_selected/base_selected_test.csv")
+    X_train, y_train = load_data("../data_selected/base_selected_train.csv")
+    X_test, y_test = load_data("../data_selected/base_selected_test.csv")
     best_knn = train_knn(X_train, y_train)
     accuracy, f1, roc_auc = evaluate_model(best_knn, X_test, y_test)
     print(f"KNN Test Accuracy: {accuracy}")

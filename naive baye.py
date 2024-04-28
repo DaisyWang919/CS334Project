@@ -2,8 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB  # or use MultinomialNB, BernoulliNB based on your data
 from sklearn.metrics import accuracy_score
-train_data = pd.read_csv('data_selected/base_selected_train.csv')
-test_data = pd.read_csv('data_selected/base_selected_test.csv')
+train_data = pd.read_csv('../data_selected/base_selected_train.csv')
+test_data = pd.read_csv('../data_selected/base_selected_test.csv')
 X_train = train_data.drop('fraud_bool', axis=1)
 y_train = train_data['fraud_bool']
 X_test = test_data.drop('fraud_bool', axis=1)
